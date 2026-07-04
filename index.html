@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дмитрий Мосин | Экспертная подготовка к ЕГЭ и ОГЭ по математике</title>
+    <style>
+        :root {
+            --bg-color: #05070c;
+            --card-bg: #0b0f19;
+            --card-hover: #111726;
+            --text-main: #F3F4F6;
+            --text-muted: #94a3b8;
+            --accent: #3B82F6;
+            --accent-glow: rgba(59, 130, 246, 0.4);
+            --accent-neon: #10B981;
+            --neon-glow: rgba(16, 185, 129, 0.3);
+            --border-color: #1e293b;
+            --glass-bg: rgba(11, 15, 25, 0.7);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Элементы появления при скролле */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Технологичный фон без лишнего мусора */
+        .global-space {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+            background-image: 
+                linear-gradient(rgba(59, 130, 246, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.015) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        
+        /* Статичные математические бэджи на фоне */
+        .math-badge {
+            position: absolute;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: rgba(16, 185, 129, 0.12);
+            text-shadow: 0 0 8px rgba(16, 185, 129, 0.05);
+            padding: 8px 14px;
+            background: rgba(11, 15, 25, 0.3);
+            border: 1px solid rgba(30, 41, 59, 0.3);
+            border-radius: 10px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .mb-1 { top: 3%; left: 4%; transform: rotate(-8deg); }
+        .mb-2 { top: 14%; right: 5%; transform: rotate(12deg); color: rgba(59, 130, 246, 0.12); }
+        .mb-3 { top: 35%; left: 6%; transform: rotate(-4deg); }
+        .mb-4 { top: 55%; right: 6%; transform: rotate(10deg); }
+        .mb-5 { top: 76%; left: 5%; transform: rotate(-12deg); color: rgba(59, 130, 246, 0.12); }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Главный экран */
+        header {
+            padding: 120px 0 80px 0;
+        }
+
+        header .container {
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .header-tag-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .header-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-neon);
+            font-weight: 700;
+            background: rgba(16, 185, 129, 0.06);
+            padding: 6px 16px;
+            border-radius: 30px;
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+        .header-tag::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--accent-neon);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-neon);
+        }
+
+        h1 {
+            font-size: 3.8rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -1.5px;
+            background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 45px;
+            max-width: 650px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--accent-neon);
+            color: #04060a;
+            padding: 18px 38px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+            letter-spacing: 0.5px;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            background-color: #14d496;
+            box-shadow: 0 10px 30px var(--neon-glow);
+        }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.03);
+            color: #fff;
+            border: 1px solid var(--border-color);
+        }
+        .btn-secondary:hover {
+            background: rgba(59, 130, 246, 0.05);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px var(--accent-glow);
+        }
+
+        /* Обновленный блок Фотографии и Орбит как на image_582ce6.png */
+        .image-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .photo-orbit-system {
+            position: absolute;
+            width: 550px;
+            height: 550px;
+            pointer-events: none;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Общие свойства для эллиптических траекторий */
+        .orbit-ellipse {
+            position: absolute;
+            width: 480px;
+            height: 240px;
+            border: 1px dashed rgba(16, 185, 129, 0.15);
+            border-radius: 50%;
+        }
+
+        /* Первая орбита (зеленая, наклонная) */
+        .orb-el-1 {
+            transform: rotate(-30deg);
+            border-color: rgba(16, 185, 129, 0.2);
+        }
+        
+        /* Вторая орбита (синяя, наклонная в другую сторону) */
+        .orb-el-2 {
+            transform: rotate(55deg);
+            border-color: rgba(59, 130, 246, 0.2);
+            width: 520px;
+            height: 260px;
+        }
+
+        /* Движущиеся по эллипсу неоновые точки */
+        .orbit-planet {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            top: 0;
+            left: 0;
+            offset-path: path('M 240,0 A 240,120 0 1,1 239.9,0 Z'); /* Магическая траектория идеального эллипса */
+            animation: travelOrbit 12s linear infinite;
+        }
+        
+        .planet-green {
+            background: var(--accent-neon);
+            box-shadow: 0 0 15px 4px var(--accent-neon), 0 0 30px #10B981;
+        }
+
+        .planet-blue {
+            background: var(--accent);
+            box-shadow: 0 0 15px 4px var(--accent), 0 0 30px #3B82F6;
+            offset-path: path('M 260,0 A 260,130 0 1,1 259.9,0 Z'); /* Траектория под больший эллипс */
+            animation-duration: 16px;
+            animation-delay: -4s; /* Разносим точки во времени */
+        }
+
+        @keyframes travelOrbit {
+            0% { offset-distance: 0%; }
+            100% { offset-distance: 100%; }
+        }
+
+        .image-wrapper-cyber {
+            position: relative;
+            z-index: 3;
+            padding: 14px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 320px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            transition: transform 0.4s ease, border-color 0.4s;
+        }
+        .image-wrapper-cyber:hover {
+            transform: scale(1.03) translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .profile-img { width: 100%; border-radius: 14px; display: block; background: #101524; }
+        .profile-caption { margin-top: 18px; text-align: center; }
+        .profile-caption h4 { font-size: 1.3rem; font-weight: 800; color: #fff; }
+        .profile-caption p { font-size: 0.8rem; color: var(--accent-neon); font-weight: 700; letter-spacing: 1.5px; margin-top: 5px; text-transform: uppercase; }
+
+        /* Бегущая строка */
+        .ticker-wrapper {
+            width: 100%; overflow: hidden;
+            background: linear-gradient(90deg, rgba(11, 15, 25, 0.8), rgba(30, 41, 59, 0.9));
+            border-top: 1px solid rgba(59, 130, 246, 0.15); border-bottom: 1px solid rgba(59, 130, 246, 0.15);
+            padding: 16px 0; margin: 50px 0; display: flex; white-space: nowrap;
+        }
+        .ticker-content { display: inline-flex; animation: tickerTrack 30s linear infinite; gap: 60px; padding-right: 60px; }
+        .ticker-item { font-size: 0.95rem; font-weight: 700; color: #fff; letter-spacing: 1.5px; display: flex; align-items: center; gap: 12px; text-transform: uppercase; }
+        .ticker-dot { width: 8px; height: 8px; background-color: var(--accent-neon); border-radius: 50%; box-shadow: 0 0 10px var(--accent-neon); }
+
+        @keyframes tickerTrack {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        section { padding: 90px 0; border-top: 1px solid var(--border-color); }
+        .section-title-area { margin-bottom: 50px; display: flex; justify-content: space-between; align-items: center; }
+        .center-title { text-align: center; justify-content: center; margin-bottom: 60px; }
+        h2 { font-size: 2.8rem; font-weight: 900; letter-spacing: -1px; }
+        h2 span { color: var(--accent-neon); }
+
+        /* Формула обучения */
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        .method-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 35px 25px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .method-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            background: var(--card-hover);
+        }
+        .method-num {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-neon), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            margin-bottom: 15px;
+        }
+        .method-card h4 { font-size: 1.15rem; color: #fff; margin-bottom: 10px; }
+        .method-card p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* Опыт преподавателя */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+        .feature-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px 35px;
+            transition: all 0.3s;
+        }
+        .feature-card:hover {
+            border-color: rgba(16, 185, 129, 0.3);
+            transform: translateY(-6px);
+            background-color: var(--card-hover);
+        }
+        .feature-card h3 { font-size: 2rem; font-weight: 900; color: #fff; margin-bottom: 15px; }
+        .feature-card p { color: var(--text-muted); font-size: 1.05rem; }
+
+        /* Как проходят занятия */
+        .process-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 50px; align-items: center; }
+        .process-steps { display: flex; flex-direction: column; gap: 24px; }
+        .process-step-card {
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 20px;
+            padding: 30px; display: flex; gap: 24px; align-items: flex-start; transition: all 0.3s;
+        }
+        .process-step-card:hover {
+            border-color: var(--accent); transform: translateX(8px);
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.04), transparent), var(--card-bg);
+        }
+        .step-icon { font-size: 2rem; line-height: 1; background: rgba(255,255,255,0.02); padding: 12px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.05); }
+        .step-text h4 { font-size: 1.3rem; color: #fff; margin-bottom: 10px; }
+        .step-text p { color: var(--text-muted); font-size: 1rem; }
+
+        .process-media {
+            position: relative; border-radius: 24px; overflow: hidden; border: 1px solid var(--border-color);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.5); cursor: zoom-in; transition: all 0.3s ease; background: #090d16;
+        }
+        .process-media:hover { border-color: var(--accent-neon); transform: scale(1.01); }
+        .process-media::before {
+            content: '🔍 Кликни для полного экрана'; position: absolute; inset: 0; background: rgba(5, 7, 12, 0.75);
+            display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1rem; font-weight: 600; opacity: 0; transition: opacity 0.25s ease; z-index: 2; backdrop-filter: blur(4px);
+        }
+        .process-media:hover::before { opacity: 1; }
+        .process-img { width: 100%; display: block; height: auto; }
+
+        .guarantee-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 50px;
+        }
+        .guarantee-card {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.02), transparent), var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 35px;
+            border-left: 4px solid var(--accent-neon);
+        }
+        .guarantee-card h4 { font-size: 1.25rem; color: #fff; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .guarantee-card p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* ИНТЕРАКТИВНЫЙ ПРАЙС-БЛОК */
+        .pricing-section {
+            text-align: center;
+            padding: 70px 0;
+        }
+        
+        .price-toggle-wrapper {
+            display: inline-flex;
+            background: #0b0f19;
+            border: 1px solid var(--border-color);
+            padding: 6px;
+            border-radius: 14px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            padding: 12px 30px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .toggle-btn.active {
+            color: #fff;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            width: calc(50% - 6px);
+            height: calc(100% - 12px);
+            background: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+            border-radius: 10px;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+        }
+        
+        .price-toggle-wrapper.oge-active .toggle-slider {
+            transform: translateX(100%);
+            background: var(--accent-neon);
+            box-shadow: 0 0 15px var(--neon-glow);
+        }
+
+        .price-cards-viewport {
+            max-width: 850px;
+            margin: 0 auto;
+            position: relative;
+            min-height: 240px;
+        }
+        
+        .price-card-compact {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #0b0f17;
+            border: 1px solid #1e293b;
+            border-radius: 24px;
+            padding: 35px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            text-align: left;
+            opacity: 0;
+            transform: scale(0.95) translateY(10px);
+            pointer-events: none;
+            transition: opacity 0.4s ease, transform 0.4s ease, border-color 0.3s;
+        }
+        
+        .price-card-compact.active {
+            position: relative;
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
+        }
+        
+        .price-card-compact.ege-tier.active {
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.05);
+        }
+        .price-card-compact.oge-tier.active {
+            border-color: rgba(16, 185, 129, 0.3);
+            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.05);
+        }
+        
+        .price-info-side {
+            flex: 1;
+        }
+        
+        .compact-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+        }
+        .ege-tier .compact-badge {
+            color: var(--accent);
+            background: rgba(59, 130, 246, 0.07);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        .oge-tier .compact-badge {
+            color: var(--accent-neon);
+            background: rgba(16, 185, 129, 0.07);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        
+        .price-card-compact h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+        
+        .price-card-compact .price-desc {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+        
+        .price-action-side {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 15px;
+            min-width: 240px;
+        }
+        
+        .price-card-compact .price-value-area {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 0;
+            white-space: nowrap;
+        }
+        
+        .price-card-compact .price-btn {
+            width: 100%;
+            padding: 14px 28px;
+            font-size: 0.95rem;
+            border-radius: 10px;
+        }
+        
+        .ege-tier .price-btn {
+            background: rgba(59, 130, 246, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #fff;
+        }
+        .ege-tier:hover .price-btn {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            box-shadow: 0 5px 20px var(--accent-glow);
+        }
+        
+        .oge-tier .price-btn {
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #fff;
+        }
+        .oge-tier:hover .price-btn {
+            background: var(--accent-neon);
+            border-color: var(--accent-neon);
+            color: #04060a;
+            box-shadow: 0 5px 20px var(--neon-glow);
+        }
+
+        /* Отзывы */
+        .slider-window { position: relative; width: 100%; overflow: hidden; border-radius: 28px; }
+        .reviews-container { display: flex; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); width: 100%; }
+        .review-card {
+            width: 100%; flex-shrink: 0; background-color: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 28px; padding: 45px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: start; opacity: 0.1; transform: scale(0.95); transition: all 0.6s ease;
+        }
+        .review-card.active { opacity: 1; transform: scale(1); }
+        .review-info-side { display: flex; flex-direction: column; gap: 20px; }
+        .student-meta h3 { color: #fff; font-size: 1.7rem; font-weight: 800; }
+        .student-meta p { color: var(--accent-neon); font-size: 0.95rem; font-weight: 700; margin-top: 4px; }
+        .review-text-wrapper { position: relative; }
+        .review-text-content { font-size: 1rem; color: #cbd5e1; line-height: 1.65; max-height: 110px; overflow: hidden; transition: max-height 0.4s ease; white-space: pre-line; }
+        .review-text-content.expanded { max-height: 1000px; }
+        .read-more-btn { background: none; border: none; color: var(--accent); font-weight: 700; cursor: pointer; margin-top: 12px; padding: 0; font-size: 0.95rem; }
+        .read-more-btn:hover { color: var(--accent-neon); }
+        .review-photo-side { position: relative; border-radius: 18px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.05); cursor: zoom-in; height: 360px; background: #0f1322; }
+        .review-photo-side::before { content: '🔍 Развернуть скриншот'; position: absolute; inset: 0; background: rgba(5, 7, 12, 0.8); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.95rem; opacity: 0; transition: opacity 0.25s; z-index: 2; backdrop-filter: blur(4px); }
+        .review-photo-side:hover::before { opacity: 1; }
+        .screenshot-img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+        .slider-navigation { display: flex; gap: 14px; }
+        .nav-arrow { background: rgba(11, 15, 25, 0.8); border: 1px solid var(--border-color); color: #fff; width: 58px; height: 58px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.25s; font-size: 1.5rem; }
+        .nav-arrow:hover { border-color: var(--accent-neon); color: var(--accent-neon); }
+
+        /* Интерактивный Квиз-Оффер */
+        .offer-section {
+            background: radial-gradient(circle at 100% 0%, rgba(59, 130, 246, 0.08), transparent), var(--card-bg);
+            border: 1px solid var(--border-color); border-radius: 28px; padding: 55px; margin-top: 40px; margin-bottom: 100px;
+            display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 60px; align-items: start;
+        }
+        .offer-text h2 { font-size: 2.8rem; margin-bottom: 24px; background: linear-gradient(to right, #ffffff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.15; }
+        .offer-text p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 25px; }
+        
+        .gift-alert {
+            background: rgba(59, 130, 246, 0.05); border: 1px dashed rgba(59, 130, 246, 0.3);
+            border-radius: 14px; padding: 20px; display: flex; align-items: center; gap: 15px;
+        }
+        .gift-icon { font-size: 2rem; }
+        .gift-info h5 { color: #fff; font-size: 1rem; margin-bottom: 2px; }
+        .gift-info p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0; }
+
+        .calculator-box { background: #04060a; border: 1px solid var(--border-color); border-radius: 22px; padding: 40px; box-shadow: inset 0 0 40px rgba(0,0,0,0.9); }
+        .calc-group { margin-bottom: 24px; }
+        .calc-label { font-size: 0.85rem; text-transform: uppercase; color: var(--accent-neon); margin-bottom: 12px; display: block; font-weight: 800; letter-spacing: 1px; }
+        .calc-select, .form-input { width: 100%; background: var(--card-bg); border: 1px solid var(--border-color); padding: 18px; color: #fff; border-radius: 12px; outline: none; font-size: 1rem; transition: all 0.2s; }
+        .calc-select:focus, .form-input:focus { border-color: var(--accent-neon); box-shadow: 0 0 15px rgba(16, 185, 129, 0.15); }
+        .calc-result { margin: 30px 0; padding: 24px; background: rgba(16, 185, 129, 0.02); border: 1px solid rgba(16, 185, 129, 0.12); border-left: 4px solid var(--accent-neon); border-radius: 12px; font-size: 1rem; color: #cbd5e1; }
+        .form-divider { height: 1px; background: var(--border-color); margin: 30px 0; }
+        .form-input { background: #060910; margin-bottom: 16px; }
+        .submit-btn { width: 100%; font-size: 1.05rem; padding: 20px; }
+
+        /* Модалка развертывания скриншотов */
+        .lightbox-modal { position: fixed; inset: 0; background: rgba(3, 5, 9, 0.98); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.35s ease; }
+        .lightbox-modal.open { opacity: 1; pointer-events: auto; }
+        .lightbox-img { max-width: 92%; max-height: 88vh; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); }
+        .lightbox-close { position: absolute; top: 30px; right: 30px; color: #fff; background: none; border: none; font-size: 3rem; cursor: pointer; }
+
+        /* Адаптивный дизайн */
+        @media (max-width: 1200px) {
+            .photo-orbit-system { transform: scale(0.75); }
+            .method-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 900px) {
+            header .container { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+            .subtitle { margin-left: auto; margin-right: auto; }
+            .btn-group { flex-direction: column; gap: 12px; }
+            .image-container { order: -1; }
+            .photo-orbit-system { display: none; }
+            .features-grid, .process-grid, .offer-section, .method-grid, .guarantee-grid { grid-template-columns: 1fr; gap: 35px; }
+            .review-card { grid-template-columns: 1fr; gap: 25px; padding: 30px; }
+            .review-photo-side { height: 280px; }
+            h1 { font-size: 2.8rem; }
+            h2 { font-size: 2.2rem; }
+            .offer-section { padding: 35px; }
+            .calculator-box { padding: 25px; }
+        }
+    </media>
+    </style>
+</head>
+<body>
+
+    <!-- Фоновое пространство -->
+    <div class="global-space">
+        <div class="math-badge mb-1">D = b² - 4ac</div>
+        <div class="math-badge mb-2">sin²x + cos²x = 1</div>
+        <div class="math-badge mb-3">∫ e^x dx = e^x + C</div>
+        <div class="math-badge mb-4">log_a(b) • log_b(c) = log_a(c)</div>
+        <div class="math-badge mb-5">V = 1/3 S_осн • h</div>
+    </div>
+
+    <!-- Шапка страницы -->
+    <header>
+        <div class="container">
+            <div>
+                <div class="header-tag-wrapper">
+                    <div class="header-tag">Математика • 7–11 классы</div>
+                </div>
+                <h1>Поступление<br>начинается сейчас.</h1>
+                <p class="subtitle">ЕГЭ и ОГЭ по математике в рамках персональной экосистемы. Понимаем долгосрочные цели, ликвидируем пробелы и выстраиваем подготовку к топ-вузам без стресса.</p>
+                <div class="btn-group">
+                    <a href="#offer" class="btn">Составить план подготовки ↗</a>
+                    <a href="#pricing" class="btn btn-secondary">Узнать стоимость</a>
+                </div>
+            </div>
+            
+            <div class="image-container">
+                <!-- Обновленная система орбитальных линий в стиле image_582ce6.png -->
+                <div class="photo-orbit-system">
+                    <div class="orbit-ellipse orb-el-1">
+                        <div class="orbit-planet planet-green"></div>
+                    </div>
+                    <div class="orbit-ellipse orb-el-2">
+                        <div class="orbit-planet planet-blue"></div>
+                    </div>
+                </div>
+                
+                <div class="image-wrapper-cyber">
+                    <img src="photo_2.jpg" alt="Дмитрий Мосин" class="profile-img">
+                    <div class="profile-caption">
+                        <h4>Дмитрий Мосин</h4>
+                        <p>ЕГЭ • ОГЭ • ВЫСШАЯ МАТЕМАТИКА</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Бегущая неоновая строка -->
+    <div class="ticker-wrapper">
+        <div class="ticker-content">
+            <div class="ticker-item"><span class="ticker-dot"></span>Профильная математика</div>
+            <div class="ticker-item"><span class="ticker-dot"></span>Индивидуальный формат</div>
+            <div class="ticker-item"><span class="ticker-dot"></span>Разбор сложных параметров</div>
+            <div class="ticker-item"><span class="ticker-dot"></span>Геометрия без зубрежки</div>
+            <div class="ticker-item"><span class="ticker-dot"></span>Подготовка к ОГЭ/ЕГЭ</div>
+            <div class="ticker-item"><span class="ticker-dot"></span>Понятные алгоритмы</div>
+            <div class="ticker-item"><span class="ticker-dot"></span>Профильная математика</div>
+            <div class="ticker-item"><span class="ticker-dot"></span>Индивидуальный формат</div>
+        </div>
+    </div>
+
+    <main class="container">
+        
+        <!-- ФОРМУЛА ОБУЧЕНИЯ -->
+        <section class="reveal">
+            <div class="section-title-area">
+                <h2>Проверенная <span>формула обучения</span></h2>
+            </div>
+            <div class="method-grid">
+                <div class="method-card">
+                    <div class="method-num">47%</div>
+                    <h4>Жесткая практика</h4>
+                    <p>Пошаговый разбор реальных задач и критериев ФИПИ без угадывания ответов.</p>
+                </div>
+                <div class="method-card">
+                    <div class="method-num">23%</div>
+                    <h4>Теория без «воды»</h4>
+                    <p>Только те теоремы, свойства и алгоритмы, которые действительно будут на экзамене.</p>
+                </div>
+                <div class="method-card">
+                    <div class="method-num">17%</div>
+                    <h4>Пробные тесты</h4>
+                    <p>Регулярные срезы знаний в условиях, максимально приближенных к реальному ОГЭ/ЕГЭ.</p>
+                </div>
+                <div class="method-card">
+                    <div class="method-num">13%</div>
+                    <h4>Работа над ошибками</h4>
+                    <p>Ювелирное вычищение мелких недочетов и невнимательности во второй части.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Блок опыта и позиционирования -->
+        <div class="features-grid reveal">
+            <div class="feature-card">
+                <h3>с 2023 года</h3>
+                <p>Успешно и профессионально готовлю школьников к государственным экзаменам.[cite: 1]</p>
+            </div>
+            <div class="feature-card">
+                <h3>Знание критериев</h3>
+                <p>Глубокое понимание правил проверки ФИПИ. Учу оформлять задачи так, чтобы эксперты не сняли ни одного балла.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Результат</h3>
+                <p>Понятная геометрия, предсказуемые параметры и абсолютная уверенность на экзамене.</p>
+            </div>
+        </div>
+
+        <!-- Как проходят занятия -->
+        <section class="reveal">
+            <div class="section-title-area">
+                <h2>Как проходит обучение?</h2>
+            </div>
+            <div class="process-grid">
+                <div class="process-steps">
+                    <div class="process-step-card">
+                        <div class="step-icon">🌐</div>
+                        <div class="step-text">
+                            <h4>Онлайн в Яндекс Телемост и на доске Miro</h4>
+                            <p>Стабильная связь без сбоев. Бесконечное интерактивное пространство Miro позволяет совместно строить детальные графики для параметров и чертить стереометрию в реальном времени.</p>
+                        </div>
+                    </div>
+                    <div class="process-step-card">
+                        <div class="step-icon">💬</div>
+                        <div class="step-text">
+                            <h4>Живой диалог вместо скучных лекций</h4>
+                            <p>Каждый урок — интерактивная беседа. Ученики избавляются от страха сделать ошибку, свободно задают любые вопросы и мгновенно получают развернутые ответы.</p>
+                        </div>
+                    </div>
+                    <div class="process-step-card">
+                        <div class="step-icon">📝</div>
+                        <div class="step-text">
+                            <h4>Индивидуальные ДЗ с экспертным разбором</h4>
+                            <p>Каждое домашнее задание формируется лично под слабые места конкретного ученика. Задачи проверяются вручную с подробными комментариями к логике решений.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="process-media" onclick="zoomImage('photo22.jpg')">
+                    <img src="photo22.jpg" alt="Интерфейс интерактивного занятия по математике" class="process-img">
+                </div>
+            </div>
+
+            <!-- Интерфейс надежности -->
+            <div class="guarantee-grid reveal">
+                <div class="guarantee-card">
+                    <h4><span>⚡</span> Всегда на связи</h4>
+                    <p>Развернутый ответ на любые организационные или учебные вопросы в Telegram в течение 25 минут.</p>
+                </div>
+                <div class="guarantee-card">
+                    <h4><span>🔒</span> Без скрытых условий</h4>
+                    <p>Прозрачная фиксация стоимости индивидуальных занятий на весь учебный год без неожиданных повышений.</p>
+                </div>
+                <div class="guarantee-card">
+                    <h4><span>🎯</span> Персональный фокус</h4>
+                    <p>Никаких потоковых лекций. Всё внимание преподавателя направлено исключительно на одного ученика.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ВАРИАНТЫ ОБУЧЕНИЯ (ИНТЕРАКТИВНЫЙ И КОМПАКТНЫЙ СВИТЧЕР) -->
+        <section id="pricing" class="pricing-section reveal">
+            <div class="section-title-area center-title">
+                <h2>Варианты обучения</h2>
+            </div>
+            
+            <!-- Интерактивный Свитч -->
+            <div class="price-toggle-wrapper" id="priceToggleWrapper">
+                <div class="toggle-slider"></div>
+                <button class="toggle-btn active" onclick="switchPrice('ege')">ЕГЭ Профиль</button>
+                <button class="toggle-btn" onclick="switchPrice('oge')">ОГЭ Математика</button>
+            </div>
+
+            <!-- Зона карточек -->
+            <div class="price-cards-viewport">
+                
+                <!-- Карточка ЕГЭ -->
+                <div class="price-card-compact ege-tier active" id="card-ege">
+                    <div class="price-info-side">
+                        <div class="compact-badge">Профильный курс</div>
+                        <h3>ЕГЭ: Индивидуально</h3>
+                        <p class="price-desc">Персональная траектория подготовки. Глубокий разбор сложных тем Профиля (параметры, геометрия) и доведение до максимальных баллов.</p>
+                    </div>
+                    <div class="price-action-side">
+                        <div class="price-value-area">
+                            1 500 ₽ <span class="price-period">/ занятие</span>
+                        </div>
+                        <a href="#offer" class="price-btn">Оставить заявку</a>
+                    </div>
+                </div>
+
+                <!-- Карточка ОГЭ -->
+                <div class="price-card-compact oge-tier" id="card-oge">
+                    <div class="price-info-side">
+                        <div class="compact-badge">Базовый курс</div>
+                        <h3>ОГЭ: Индивидуально</h3>
+                        <p class="price-desc">Ликвидация абсолютно всех пробелов за среднюю школу, разбор геометрического блока и уверенная подготовка к сдаче экзамена.</p>
+                    </div>
+                    <div class="price-action-side">
+                        <div class="price-value-area">
+                            1 000 ₽ <span class="price-period">/ занятие</span>
+                        </div>
+                        <a href="#offer" class="price-btn">Записаться на ОГЭ</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ОТЗЫВЫ И РЕЗУЛЬТАТЫ -->
+        <section id="reviews" class="reveal">
+            <div class="section-title-area">
+                <h2>Отзывы и результаты</h2>
+                <div class="slider-navigation">
+                    <button class="nav-arrow" onclick="changeSlide(-1)">←</button>
+                    <button class="nav-arrow" onclick="changeSlide(1)">→</button>
+                </div>
+            </div>
+
+            <div class="slider-window">
+                <div class="reviews-container" id="reviewsContainer">
+                    <div class="review-card active">
+                        <div class="review-info-side">
+                            <div class="student-meta">
+                                <h3>Данила</h3>
+                                <p>Профильный уровень • ЕГЭ 90 баллов</p>
+                            </div>
+                            <div class="review-text-wrapper">
+                                <div class="review-text-content">Привет! Результаты пришли - 90 баллов. Я очень доволен. Спасибо вам большое за подготовку. Особенно за то, что мы так тщательно разбирали 17-ю и 19-ю задачи — на экзамене они меня не завалили. Без тебя бы столько не набрал. Ещё раз спасибо!</div>
+                                <button class="read-more-btn" onclick="toggleText(this)">Развернуть историю ▼</button>
+                            </div>
+                        </div>
+                        <div class="review-photo-side" onclick="zoomImage('pd.jpg')">
+                            <img src="pd.jpg" alt="Отзыв Данила" class="screenshot-img">
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-info-side">
+                            <div class="student-meta">
+                                <h3>Кристина (База)</h3>
+                                <p>ЕГЭ Базовый уровень • Результат: 5</p>
+                            </div>
+                            <div class="review-text-wrapper">
+                                <div class="review-text-content">Здравствуйте, у меня пятерка!!! Я сама не ожидала, если честно! Огромное спасибо!! Я очень рада что именно вы были моим репетитором, даже как-то грустно что занятия кончились(</div>
+                                <button class="read-more-btn" onclick="toggleText(this)">Развернуть историю ▼</button>
+                            </div>
+                        </div>
+                        <div class="review-photo-side" onclick="zoomImage('pg.jpg')">
+                            <img src="pg.jpg" alt="Отзыв Кристина База" class="screenshot-img">
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-info-side">
+                            <div class="student-meta">
+                                <h3>Кристина (Профиль)</h3>
+                                <p>Курс Профильной Математики</p>
+                            </div>
+                            <div class="review-text-wrapper">
+                                <div class="review-text-content">Хочу сказать огромное спасибо Дмитрию за наши занятия! Занимаемся мы пока относительно недавно, но я уже вижу большой прогресс. До начала уроков профильная математика казалась мне каким-то дремучим лесом. В школе темы проскакивают галопом, и если что-то не понял, разбирайся сам( Дмитрий с первого же занятия смог расположить к себе. Атмосфера на уроках очень комфортная, нет никакого страха ошибиться или задать «глупый» вопрос. Он объясняет сложные теоремы и формулы буквально на пальцах, раскладывает всё по полочкам. Если мне непонятно с первого раза, Дмитрий спокойно подбирает другой подход и объясняет заново, без раздражения. Будем продолжать работу!:) Очень рекомендую Дмитрия как классного профессионала!</div>
+                                <button class="read-more-btn" onclick="toggleText(this)">Развернуть историю ▼</button>
+                            </div>
+                        </div>
+                        <div class="review-photo-side" onclick="zoomImage('photo11.jpg')">
+                            <img src="photo11.jpg" alt="Скриншот отзыва Кристины" class="screenshot-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ИНТЕРАКТИВНЫЙ КВИЗ-ОФФЕР -->
+        <div class="offer-section reveal" id="offer">
+            <div class="offer-text">
+                <h2>Рассчитать стратегию поступления</h2>
+                <p>Выбери свой исходный уровень и приоритетную цель. Интерактивная система мгновенно подберет оптимальный вектор подготовки, уберет панику и зафиксирует за тобой место на индивидуальное обучение.</p>
+                
+                <div class="gift-alert">
+                    <div class="gift-icon">🎁</div>
+                    <div class="gift-info">
+                        <h5>Отправим ценный подарок</h5>
+                        <p>После отправки заявки вы сразу получите закрытый чек-лист с разбором хитрых ловушек в критериях ФИПИ.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="calculator-box">
+                <div class="calc-group">
+                    <label class="calc-label">1. Твой текущий уровень знаний:</label>
+                    <select class="calc-select" id="startLevel" onchange="updateStrategy()">
+                        <option value="zero">Полный ноль / Страх перед геометрией</option>
+                        <option value="base">Пишу пробники на 50-60 баллов (знаю базу)</option>
+                        <option value="high">Хочу решать сложные параметры и 19 задачу</option>
+                    </select>
+                </div>
+                <div class="calc-group">
+                    <label class="calc-label">2. Желаемая цель:</label>
+                    <select class="calc-select" id="targetGoal" onchange="updateStrategy()">
+                        <option value="oge">Сдать ОГЭ на твердую «5»</option>
+                        <option value="ege80">80+ баллов на ЕГЭ (Бюджет в вузе)</option>
+                        <option value="ege90">90+ баллов / Топ-вузы и ИТ-направления</option>
+                    </select>
+                </div>
+
+                <div class="calc-result" id="strategyResult">Интерактивный расчет вектора...</div>
+                <div class="form-divider"></div>
+
+                <div class="calc-group">
+                    <label class="calc-label">3. Контактные данные для связи:</label>
+                    <input type="text" class="form-input" placeholder="Имя ученика или родителя" required>
+                    <input type="text" class="form-input" placeholder="Телефон или Telegram ник" required>
+                </div>
+
+                <button class="btn submit-btn" onclick="alert('Стратегия зафиксирована! Подарок зарезервирован. Свяжитесь напрямую через Telegram!')">Рассчитать и получить подарок ↗</button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Модалка лайтбокса -->
+    <div class="lightbox-modal" id="lightbox" onclick="closeZoom()">
+        <button class="lightbox-close">&times;</button>
+        <img src="" id="lightboxTarget" class="lightbox-img" alt="Крупный план скриншота">
+    </div>
+
+    <script>
+        // Анимация появления блоков при скролле
+        const revealElements = document.querySelectorAll('.reveal');
+        function checkReveal() {
+            const triggerBottom = window.innerHeight / 5 * 4.3;
+            revealElements.forEach(el => {
+                const boxTop = el.getBoundingClientRect().top;
+                if(boxTop < triggerBottom) { el.classList.add('active'); }
+            });
+        }
+        window.addEventListener('scroll', checkReveal);
+        window.addEventListener('load', checkReveal);
+
+        // Логика интерактивного переключения прайса
+        function switchPrice(tier) {
+            const wrapper = document.getElementById('priceToggleWrapper');
+            const btnEge = document.querySelectorAll('.toggle-btn')[0];
+            const btnOge = document.querySelectorAll('.toggle-btn')[1];
+            const cardEge = document.getElementById('card-ege');
+            const cardOge = document.getElementById('card-oge');
+
+            if (tier === 'ege') {
+                wrapper.classList.remove('oge-active');
+                btnEge.classList.add('active');
+                btnOge.classList.remove('active');
+                cardOge.classList.remove('active');
+                setTimeout(() => { cardEge.classList.add('active'); }, 150);
+            } else {
+                wrapper.classList.add('oge-active');
+                btnEge.classList.remove('active');
+                btnOge.classList.add('active');
+                cardEge.classList.remove('active');
+                setTimeout(() => { cardOge.classList.add('active'); }, 150);
+            }
+        }
+
+        // Слайдер отзывов
+        let currentSlide = 0;
+        const cards = document.querySelectorAll('.review-card');
+        const container = document.getElementById('reviewsContainer');
+
+        function changeSlide(direction) {
+            cards[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + direction + cards.length) % cards.length;
+            container.style.transform = `translateX(-${currentSlide * 100}%)`;
+            cards[currentSlide].classList.add('active');
+        }
+
+        // Кнопка развертывания текста отзывов
+        function toggleText(btn) {
+            const textBlock = btn.previousElementSibling;
+            textBlock.classList.toggle('expanded');
+            btn.innerHTML = textBlock.classList.contains('expanded') ? 'Свернуть историю ▲' : 'Развернуть историю ▼';
+        }
+
+        // Увеличение картинок/скриншотов
+        function zoomImage(source) {
+            const box = document.getElementById('lightbox');
+            const target = document.getElementById('lightboxTarget');
+            target.src = source;
+            box.classList.add('open');
+        }
+
+        function closeZoom() { document.getElementById('lightbox').classList.remove('open'); }
+
+        // Калькулятор офферов-стратегий
+        function updateStrategy() {
+            const level = document.getElementById('startLevel').value;
+            const goal = document.getElementById('targetGoal').value;
+            const resultBox = document.getElementById('strategyResult');
+            let message = "";
+            
+            if (level === "zero" && goal === "oge") {
+                message = "🔥 <strong>План «Старт-Контроль»:</strong> Структурируем хаос, уничтожаем страх перед геометрией 1-й части. Выходим на 4 за пару месяцев, далее дожимаем до уверенной 5.";
+            } else if (level === "zero" && (goal === "ege80" || goal === "ege90")) {
+                message = "🚀 <strong>Интенсивный разгон:</strong> Экстренное закрытие фундаментальных пробелов. Сначала гарантируем 70+ баллов на тестовой части, затем подключаем экономические задачи.";
+            } else if (level === "base" && goal === "ege80") {
+                message = "💎 <strong>Фокус-Максимум:</strong> Автоматизируем 1-ю часть до 15 минут без глупых ошибок и филигранно оттачиваем неравенства с экономическими задачами. 80+ баллов в кармане.";
+            } else if (level === "high" || goal === "ege90") {
+                message = "⚡ <strong>Высшая Лига:</strong> Полный взлом сложных параметров (17 задача) и теории чисел (19 задача). Разберем неочевидные графические подходы.";
+            } else {
+                message = "✨ <strong>Индивидуальный вектор:</strong> Ювелирно подстроим баланс глубокой теории и сложной практики под твой темп, чтобы полностью убрать экзаменационный стресс.";
+            }
+            resultBox.innerHTML = message;
+        }
+        window.onload = function() {
+            updateStrategy();
+        };
+    </script>
+</body>
+</html>
